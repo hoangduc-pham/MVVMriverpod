@@ -1,0 +1,53 @@
+[
+    {
+      "id": 1,
+      "title": "Movie 1",
+      "poster": "assets/images/movie1.jpg"
+    },
+    {
+      "id": 2,
+      "title": "Movie 2",
+      "poster": "assets/images/movie2.jpg"
+    },
+    {
+      "id": 3,
+      "title": "Movie 3",
+      "poster": "assets/images/movie3.jpg"
+    },
+    {
+      "id": 4,
+      "title": "Movie 4",
+      "poster": "assets/images/movie4.jpg"
+    },
+    {
+        "id": 5,
+        "title": "Movie 5",
+        "poster": "assets/images/movie5.jpg"
+    },
+    {
+        "id": 6,
+        "title": "Movie 6",
+        "poster": "assets/images/movie6.jpg"
+    },
+    {
+        "id": 7,
+        "title": "Movie 7",
+        "poster": "assets/images/movie7.jpg"
+    },
+    {
+        "id": 8,
+        "title": "Movie 8",
+        "poster": "assets/images/movie8.jpg"
+    },
+    {
+        "id": 9,
+        "title": "Movie 9",
+        "poster": "assets/images/movie9.jpg"
+    },
+    {
+        "id": 10,
+        "title": "Movie 10",
+        "poster": "assets/images/movie10.jpg"
+    }  
+  ]
+  
