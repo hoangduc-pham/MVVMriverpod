@@ -21,39 +21,23 @@ class _ListAppState extends ConsumerState<ListApp> {
 
   @override
   Widget build(BuildContext context) {
-    final viewModel = ListAppViewModel(ref);
     final apps = viewModel.apps;
     final hoverState = viewModel.hoverState;
     final ScrollController _scrollController = ScrollController();
     if (apps.isEmpty) {
       return const Center(
           child:
-              CircularProgressIndicator()); // Hoặc thông báo "No movies available"
+              CircularProgressIndicator());
     }
     return Padding(
       padding: const EdgeInsets.only(bottom: 16, left: 16, top: 16),
       child: MouseRegion(
         onHover: (event) {
-          // Lấy vị trí con trỏ chuột và kích thước của danh sách
-          final RenderBox box = context.findRenderObject() as RenderBox;
-          final Offset localPosition = box.globalToLocal(event.position);
-
-          // Kiểm tra nếu chuột nằm trong góc phải của danh sách
-          if (localPosition.dx >= box.size.width - 50) {
-            // Cuộn danh sách sang phải
-            _scrollController.animateTo(
-              _scrollController.offset + 200, // Cuộn thêm 50 pixels
-              duration: const Duration(milliseconds: 400),
-              curve: Curves.easeOut,
-            );
-          } else if (localPosition.dx <= 50) {
-            // Cuộn danh sách sang trái nếu chuột ở góc trái
-            _scrollController.animateTo(
-              _scrollController.offset - 200, // Cuộn lùi 50 pixels
-              duration: const Duration(milliseconds: 400),
-              curve: Curves.easeIn,
-            );
-          }
+           viewModel.handleHover(
+            context: context,
+            pointerPosition: event.position,
+            scrollController: _scrollController,
+          );
         },
         child: SizedBox(
           height: 90,

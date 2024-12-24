@@ -1,4 +1,5 @@
-import 'package:consapppro/model/movie.dart';
+import 'package:consapppro/model/movie_model/movie.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../providers/movie_provider.dart';
 
@@ -16,6 +17,29 @@ class ListMovieViewModel {
   }
     // Hàm cập nhật trạng thái hover
   void setHover(int index, bool isHovering) {
-    ref.read(hoverStateProvider.notifier).setHover(index, isHovering);
+    ref.read(hoverStateProvider.notifier).stateHover(index, isHovering);
+  }
+
+    void handleHover({
+    required BuildContext context,
+    required Offset pointerPosition,
+    required ScrollController scrollController,
+  }) {
+    final RenderBox box = context.findRenderObject() as RenderBox;
+    final Offset localPosition = box.globalToLocal(pointerPosition);
+
+    if (localPosition.dx >= box.size.width - 50) {
+      scrollController.animateTo(
+        scrollController.offset + 200,
+        duration: const Duration(milliseconds: 400),
+        curve: Curves.easeOut,
+      );
+    } else if (localPosition.dx <= 50) {
+      scrollController.animateTo(
+        scrollController.offset - 200,
+        duration: const Duration(milliseconds: 400),
+        curve: Curves.easeIn,
+      );
+    }
   }
 }

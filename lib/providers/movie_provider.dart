@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:consapppro/model/movie.dart';
+import 'package:consapppro/model/movie_model/movie.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/services.dart';
 
@@ -21,7 +21,7 @@ class HoverStateNotifier extends StateNotifier<Map<int, bool>> {
   HoverStateNotifier() : super({});
 
   // Phương thức cập nhật trạng thái hover
-  void setHover(int index, bool isHovering) {
+  void stateHover(int index, bool isHovering) {
     state = {
       ...state,
       index: isHovering,
