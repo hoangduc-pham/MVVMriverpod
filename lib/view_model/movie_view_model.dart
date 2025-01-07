@@ -1,45 +1,30 @@
 import 'package:consapppro/model/movie_model/movie.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../providers/movie_provider.dart';
+import 'package:equatable/equatable.dart';
 
-class ListMovieViewModel {
-  final WidgetRef ref;
+class ListMovieViewModel extends Equatable {
+  final List<Movie> movies;
+  final Map<int, bool> hoverState;
+  final int selectedIndex;
 
-  ListMovieViewModel(this.ref);
- // Lấy dữ liệu phim từ provider
-  List<Movie> get movies => ref.watch(movieProvider);
-      // Lấy trạng thái hover từ provider
-  Map<int, bool> get hoverState => ref.watch(hoverStateProvider);
- // Hàm tải dữ liệu phim
-  Future<void> loadMovies() async {
-    await ref.read(movieProvider.notifier).fetchMovies();
-  }
-    // Hàm cập nhật trạng thái hover
-  void setHover(int index, bool isHovering) {
-    ref.read(hoverStateProvider.notifier).stateHover(index, isHovering);
-  }
 
-    void handleHover({
-    required BuildContext context,
-    required Offset pointerPosition,
-    required ScrollController scrollController,
+  const ListMovieViewModel({
+    this.movies = const [],
+    this.hoverState = const {},
+    this.selectedIndex = 0,
+  });
+  
+  ListMovieViewModel copyWith({
+    List<Movie>? movies,
+    Map<int, bool>? hoverState,
+    int? selectedIndex,
   }) {
-    final RenderBox box = context.findRenderObject() as RenderBox;
-    final Offset localPosition = box.globalToLocal(pointerPosition);
-
-    if (localPosition.dx >= box.size.width - 50) {
-      scrollController.animateTo(
-        scrollController.offset + 200,
-        duration: const Duration(milliseconds: 400),
-        curve: Curves.easeOut,
-      );
-    } else if (localPosition.dx <= 50) {
-      scrollController.animateTo(
-        scrollController.offset - 200,
-        duration: const Duration(milliseconds: 400),
-        curve: Curves.easeIn,
-      );
-    }
+    return ListMovieViewModel(
+      movies: movies ?? this.movies,
+      hoverState: hoverState ?? this.hoverState,
+      selectedIndex: selectedIndex ?? this.selectedIndex,
+    );
   }
+
+  @override
+  List<Object?> get props => [movies, hoverState, selectedIndex];
 }
